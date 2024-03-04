@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Regex Matcher</title>
+    <style>
+        body {
+            background-color: rgb(18, 18, 18);
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .regex {
+            background-color: rgb(35, 35, 35);
+            color: white;
+            border: 10px solid #000000;
+            float: left;
+            z-index: 2;
+            width: 40%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-right: 5%;
+            margin-left: 10%;
+        }
+
+        .email {
+
+            box-sizing: border-box;
+            background-color: rgb(35, 35, 35);
+            color: white;
+            border: 10px solid #000000;
+            float: left;
+            width: 40%;
+            text-align: center;
+            padding: 10px;
+            transition-duration: 0.4s;
+
+        }
+        
+        textarea:active{
+            box-shadow: 0px 0px #666;transform: translateY(2px);
+        }
+        textarea:hover {
+            background-color: white;
+            opacity: 0.5;
+            color: black;
+            font-weight: bold;
+            box-shadow: 3px 5px 8px #888888
+        }
+        input:active{
+            box-shadow: 0px 0px #666;transform: translateY(2px);
+        }
+        input:hover {
+            background-color: white;
+            opacity: 0.5;
+            color: black;
+            font-weight: bold;
+            box-shadow: 3px 5px 8px #888888
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="regex">
+            <h1>Regex Matcher</h1>
+
+
+            <form action="/results" method="post">
+
+                <label for="regex_pattern">Regex Pattern:</label><br>
+                <input type="text" id="regex_pattern" name="regex_pattern"><br><br>
+                <label for="test_string">Test String:</label><br>
+                <textarea id="test_string" name="test_string" rows="5" cols="40"></textarea><br><br>
+                <input type="submit" value="Submit"><br><br>
+                <h3>
+                    Example:
+                </h3>
+                <p style="font-size: small;">
+                    Test String:
+                    <br>John: john@example.com, 1234567890
+                    <br>
+                    Jane: jane@example.com, 9876543210
+                    <br>
+                    Alice: alice@example.com, 5551234567
+                    <br>
+                    Bob: bob@example.com, 9998887777
+                    <br><br>
+                    Regex Pattern:
+                    <br>
+                    To get Phone numbers:
+                    <br>
+                    \b\d{10}\b
+                    <br>
+                    To get names
+                    <br>
+                    r'[A-Z][a-z]+(?: [A-Z][a-z]+)?'
+                    <br>
+                    To get mail address:
+                    <br>
+                    \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b
+                    <br>
+                </p>
+
+                {% if matches %}
+                <h1>Regex Results</h1>
+                <ul>
+                    {% for match in matches %}
+                    <li>{{ match }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                {% endif %}
+            </form>
+        </div>
+        <div class="email">
+            <h1>Email Validation</h1>
+            <form action="/validate_email" method="post">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <p>{{ validation_result }}</p>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
